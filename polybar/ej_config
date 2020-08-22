@@ -1,26 +1,22 @@
 [bar/top]
 enable-ipc = true
-;EJ Changed label from bottom to top
-top = true
+bottom = true
 monitor = eDP1
 width = 100%
-height = 20
-dpi = 96	
+height = 43
+dpi = 192
 
-;EJ reduced dpi by half and height from 46 to a custom valueforeground = #ccffffff
-; background default = #1f1f1f , foreground default = #eee
-
-background = #000000
-foreground = #ccffffff
+background = #1f1f1f
+foreground = #eee
 
 line-color = ${bar/bottom.background}
-line-size = 16
+line-size = 1
 
 padding-left = 0
 padding-right = 0
-module-margin-left = 2
-module-margin-right = 2
-;EJ Expeerimenting module-margin actual value is 3..
+module-margin-left = 3
+module-margin-right = 3
+
 
 separator = |
 
@@ -37,22 +33,19 @@ font-1 = Material\ Icons:size=11;2
 font-2 = xos4\ Terminus:size=14;0
 font-3 = Siji:pixelsize=11;1
 font-4 = FontAwesome:size=11;0
-;EJ Experimenting font size 0:9-0,1:11-2,2:14-2,3:11-2,4,11-2 Actual Font Value..
 
-;EJ Removed i3 from modules left..
-;EJ Removed mpu memory xkeyboard from modules right..
-modules-left = powermenu mpd
-modules-right = temperature filesystem volume wireless-network battery date
+
+modules-left = mpd i3 
+modules-right = cpu memory temperature filesystem xkeyboard volume wireless-network consumation  battery date        
 
 wm-restack = i3
 
-tray-position = right
+tray-position = right 
 tray-scale = 1.0
-tray-transparent = true
+;tray-transparent = true
 tray-background = ${self.background}
-tray-maxsize = 32
+tray-maxsize = 64
 
-;EJ Experimenting tray size from Actual Value 64..
 tray-offset-y = 0
 
 scroll-up = i3wm-wsnext
@@ -64,13 +57,14 @@ underline-size = 2
 underline-color = ${self.background}
 
 [bar/bottom]
+
+#monitor = HDMI-1
 monitor = eDP1
 bottom = true
 width = 100%
-height = 20
-dpi = 96
+height = 40
+dpi = 192
 
-;EJ Experimenting height Actual Value 40 and dpi Actual Value 192..
 scroll-up = i3wm-wsnext
 scroll-down = i3wm-wsprev
 
@@ -82,7 +76,7 @@ line-size = 2
 
 spacing = 3
 padding-right = 4
-module-margin-left = 0
+module-margin-left = 0 
 module-margin-right = 6
 
 ;font-0 = NotoSans-Regular:size=10;0
@@ -92,15 +86,13 @@ font-2 = xos4\ Terminus:size=14;0
 font-3 = Siji:pixelsize=11;1
 font-4 = FontAwesome:size=11;0
 
-modules-left = Arch_Linux i3 spotify
-;modules-right = cpu memory temperature filesystem xkeyboard volume wireless-network battery date
-modules-right = cpu memory
+modules-left = i3 spotify 
+modules-right = cpu memory temperature filesystem xkeyboard volume wireless-network consumation  battery date        
+#modules-right = cpu memory  filesystem volume backlight   battery date
 
-;EJ Commented Consumation from modules-right
-
-tray-position = right
+tray-position = right 
 tray-scale = 1.0
-tray-transparent = true
+;tray-transparent = true
 tray-background = ${self.background}
 tray-maxsize = 64
 
@@ -131,7 +123,7 @@ bar-empty-foreground = #44
 [module/consumation]
 type = custom/script
 
-exec = $HOME/.config/polybar/power.sh
+exec = path/to/.config/polybar/power.sh
 interval = 2
 
 [module/battery]
@@ -143,7 +135,7 @@ format-discharging = <ramp-capacity> <label-discharging>
 format-full = <ramp-capacity> <label-full>
 
 label-charging = %percentage%% %time%h
-label-discharging = %percentage%% %time%h
+label-discharging = %percentage%% %time%h 
 ramp-capacity-0 = 
 ramp-capacity-0-foreground = #f53c3c
 ramp-capacity-1 = 
@@ -176,7 +168,7 @@ ws-icon-1 = web;
 ws-icon-2 = code;
 ws-icon-3 = music;
 ws-icon-4 = irssi;
-ws-icon-default =  
+ws-icon-default = 
 
 format = <label-state> <label-mode>
 
@@ -231,7 +223,7 @@ label-private-padding = ${module/bspwm.label-monocle-padding}
 type = internal/bspwm
 format = <label-state>
 
-label-active = #ffffff
+label-active = 
 label-active-padding = 1
 label-occupied = 
 label-occupied-padding = 1
@@ -279,7 +271,7 @@ format = <label> <bar-used>
 label = RAM
 
 bar-used-width = 30
-at this could be related to LVM encrbar-used-foreground-0 = #aaff77
+bar-used-foreground-0 = #aaff77
 bar-used-foreground-1 = #aaff77
 bar-used-foreground-2 = #fba922
 bar-used-foreground-3 = #ff5555
@@ -291,13 +283,6 @@ bar-used-fill-font = 6
 bar-used-empty = ─
 bar-used-empty-font = 6
 bar-used-empty-foreground = #444444
-
-[module/Arch_Linux]
-type = custom/script
-format = <Arch_Logo> <label>
-label = Arch Linux
-
-Arch_Logo = 
 
 [module/mpd]
 type = internal/mpd
@@ -328,8 +313,8 @@ bar-progress-empty-foreground = #44
 
 [module/wireless-network]
 type = internal/network
-;interface = enp1s0
-interface = wlp2s0
+;interface = enp4s0
+interface = wlp5s0
 interval = 1.0
 ping-interval = 10
 
@@ -353,8 +338,8 @@ animation-packetloss-framerate = 500
 
 [module/volume]
 type = internal/volume
-speaker-mixer = Speaker
-headphone-mixer = Headphone
+;speaker-mixer = Speaker
+;headphone-mixer = Headphone
 :headphone-id = 9
 
 format-volume = <ramp-volume> <label-volume>
@@ -445,20 +430,19 @@ pin-workspaces = true
 strip-wsnumbers = true
 index-sort = true
 
-; Use fuzzy (partial) matching on labels when assigning
+; Use fuzzy (partial) matching on labels when assigning 
 ; icons to workspaces
-; Example: code;♚ will apply the icon to all workspaces
+; Example: code;♚ will apply the icon to all workspaces 
 ; containing 'code' in the label
 ; Default: false
 fuzzy-match = true
 
-ws-icon-0 = 1;
-ws-icon-1 = 2; 
-ws-icon-2 = 3; 
-ws-icon-3 = 4; 
-ws-icon-4 = 5;
-ws-icon-9 = 10;
-ws-icon-default = 0; 
+ws-icon-0 = 1;♚
+ws-icon-1 = 2;♛
+ws-icon-2 = 3;♜
+ws-icon-3 = 4;♝
+ws-icon-4 = 5;♞
+ws-icon-default = ♟
 
 label-dimmed-underline = ${root.background}
 
@@ -480,8 +464,7 @@ label-mode-background = #e60053
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-;EJ Changed label-focused from index to icon
-label-focused = %index%
+label-focused =  %index%
 label-focused-foreground = #ffffff
 label-focused-background = #3f3f3f
 label-focused-underline = #fba922
@@ -493,7 +476,6 @@ label-focused-padding = 4
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-;EJ Changed label-unfocused from index to icon
 label-unfocused = %index%
 label-unfocused-padding = 4
 
@@ -503,7 +485,6 @@ label-unfocused-padding = 4
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-;EJ Changed label-visible from index to icon
 label-visible = %index%
 label-visible-underline = #555555
 label-visible-padding = 4
@@ -514,7 +495,6 @@ label-visible-padding = 4
 ;   %index%
 ;   %output%
 ; Default: %icon%  %name%
-;EJ Changed label-visible from index to icon
 label-urgent = %index%
 label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
@@ -528,9 +508,9 @@ label-separator-foreground = #ffb52a
 [module/spotify]
 type = custom/script
 interval = 1
-format-prefix = "  "
+format-prefix = "  "  
 format = <label>
-exec = python3 $HOME/.config/polybar/spotify.py  -f '{play_pause} {song} - {artist} - {album}'
+exec = python   path/to/.config/polybar/spotify.py  -f '{play_pause} {song} - {artist} - {album}'
 
 format-underline = #1db954
 
